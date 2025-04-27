@@ -52,16 +52,9 @@ if (isset($_SESSION['loginError']))
           data: {idCategory: idCategory, year: year},
           success: function(data) {
             let clearData = JSON.parse(data);
-            if (clearData.length == 0) {
-              alert("s");
-            }
-            else {
-              clearData.forEach(function (item) {
-                alert(item[1]);
-              });
-            }
-            
-            return clearData;
+            console.log(data);
+            console.log(clearData);
+            return clearData[0];
           }
         });
       }
@@ -99,7 +92,16 @@ if (isset($_SESSION['loginError']))
             }
             else {
             clearData.forEach(function (item) {
-              let budget = getBudget(item[0], "2025");
+              let budget = getBudget(item[0], 2025);
+              /*if(budget == 1) {
+
+              }
+              else {
+                budget.forEach(function (el) {
+                  console.log(el);
+                });
+              }*/
+              
               if (item[2] == "Income") {
                 $('#tableIncome').append(""+
                   "<tr>"+
