@@ -46,20 +46,11 @@ if (isset($_SESSION['loginError']))
     </div>
     <script>
     
-      function getBudget(idCategory, year) {
-        $.ajax({
-          url: 'model/getBudgetFromCategoryAndYear.php',
-          data: {idCategory: idCategory, year: year},
-          success: function(data) {
-            let clearData = JSON.parse(data);
-            console.log(data);
-            console.log(clearData);
-            return clearData[0];
-          }
-        });
-      }
+     
 
       function displayCategories() {
+
+        // Table Structure
         $('#tableIncome').empty();
         $('#tableExpenses').empty();
         $('#tableSavings').empty();
@@ -83,25 +74,18 @@ if (isset($_SESSION['loginError']))
         $('#tableIncome').append(header);
         $('#tableExpenses').append(header);
         $('#tableSavings').append(header);
+
         $.ajax({
-          url: 'model/getCategories.php',
+          url: 'model/getBudgetFromCategoryAndYear.php',
+          data: {idCategory: 2, year: 2025},
           success: function(data) {
             let clearData = JSON.parse(data);
+            console.log(clearData);
             if (clearData.length == 0) {
               
             }
             else {
-            clearData.forEach(function (item) {
-              let budget = getBudget(item[0], 2025);
-              /*if(budget == 1) {
-
-              }
-              else {
-                budget.forEach(function (el) {
-                  console.log(el);
-                });
-              }*/
-              
+            clearData.forEach(function (item) {             
               if (item[2] == "Income") {
                 $('#tableIncome').append(""+
                   "<tr>"+
@@ -172,23 +156,6 @@ if (isset($_SESSION['loginError']))
         
         displayCategories();
 
-        //Add a Category
-        /*$("#addCat").click(function(){
-          $.ajax({
-          url: 'model/addCategory.php',
-          data: {nameCat: $("#nameCat").val(), typeCat: $("#typeCat").val()},
-          success: function(data) {
-            let clearData = JSON.parse(data);
-            if (clearData) {
-              getCategories();
-            }
-            else {
-              alert("ERROR: La categorie n'a pas été ajoutée");
-            }
-          },
-          type: 'GET'
-          });
-        });*/
       });
     </script>
   </body>
