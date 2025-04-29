@@ -28,17 +28,14 @@ if (isset($_SESSION['loginError']))
     </div>
     
     <div class="container">
-      <h4 class="text-center">Income</h4>
       <table style="margin-bottom: 5%;" id="tableIncome" class="table table-hover table-responsive">
           
       </table>
       <br>
-      <h4 class="text-center">Expenses</h4>
       <table style="margin-bottom: 5%;" id="tableExpenses" class="table table-hover table-responsive">
           
       </table>
       <br>
-      <h4 class="text-center">Savings</h4>
       <table style="margin-bottom: 5%;" id="tableSavings" class="table table-hover table-responsive">
           
       </table>
@@ -46,38 +43,42 @@ if (isset($_SESSION['loginError']))
     </div>
     <script>
     
-     
+     function displayTableHead(type, color) {
+      return ""+
+          "<tr>"+
+            "<th style=\"color: "+color+";text-align: center; width: 400px;\">"+type+"</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Jan</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Mar</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Feb</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Apr</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">May</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Jun</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Jul</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Aug</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Sep</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Oct</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Nov</th>"+
+            "<th style=\"color: "+color+";text-align: center; width: 100px;\">Dec</th>"+
+          "</tr>";
+     }
 
       function displayCategories() {
+
+        let blue = "#0070c0";
+        let red = "#ff0066";
+        let green = "#00cc66";
 
         // Table Structure
         $('#tableIncome').empty();
         $('#tableExpenses').empty();
         $('#tableSavings').empty();
-        let header = ""+
-          "<tr>"+
-            "<th style=\"width: 400px;\"></th>"+
-            "<th style=\"text-align: center; width: 100px;\">Jan</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Mar</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Feb</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Apr</th>"+
-            "<th style=\"text-align: center; width: 100px;\">May</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Jun</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Jul</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Aug</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Sep</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Oct</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Nov</th>"+
-            "<th style=\"text-align: center; width: 100px;\">Dec</th>"+
-          "</tr>";
-          
-        $('#tableIncome').append(header);
-        $('#tableExpenses').append(header);
-        $('#tableSavings').append(header);
+        $('#tableIncome').append(displayTableHead("Income", green));
+        $('#tableExpenses').append(displayTableHead("Expenses", red));
+        $('#tableSavings').append(displayTableHead("Savings", blue));
 
         $.ajax({
           url: 'model/getBudgetFromCategoryAndYear.php',
-          data: {idCategory: 2, year: 2025},
+          data: {year: 2025},
           success: function(data) {
             let clearData = JSON.parse(data);
             console.log(clearData);
@@ -90,18 +91,18 @@ if (isset($_SESSION['loginError']))
                 $('#tableIncome').append(""+
                   "<tr>"+
                     "<td class=\"text-center\">"+item[1]+"</td>"+
-                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[3]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[4]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[5]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[6]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[7]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[8]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[9]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[10]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[11]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[12]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[13]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[14]+"\"></td>"+
                   "</tr>"
                 );
               }
@@ -109,18 +110,18 @@ if (isset($_SESSION['loginError']))
                 $('#tableExpenses').append(""+
                   "<tr>"+
                     "<td class=\"text-center\">"+item[1]+"</td>"+
-                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[3]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[4]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[5]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[6]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[7]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[8]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[9]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[10]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[11]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[12]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[13]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[14]+"\"></td>"+
                   "</tr>"
                 );
               }
@@ -128,18 +129,18 @@ if (isset($_SESSION['loginError']))
                 $('#tableSavings').append(""+
                   "<tr>"+
                     "<td class=\"text-center\">"+item[1]+"</td>"+
-                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
-                    "<td class=\"text-center\"><input type=\"text\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[3]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[4]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[5]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[6]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[7]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[8]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[9]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[10]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[11]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[12]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[13]+"\"></td>"+
+                    "<td class=\"text-center\"><input type=\"text\" style=\"text-align: right;\" value=\""+item[14]+"\"></td>"+
                   "</tr>"
                 );
               }

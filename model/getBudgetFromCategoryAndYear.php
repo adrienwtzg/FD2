@@ -15,9 +15,8 @@ $db = connectDB();
 $qCats = $db->prepare("SELECT * FROM categories");
 
 
-$qBud = $db->prepare("SELECT * FROM `budget` WHERE `year` = ? AND `idCategory` = ?");
+$qBud = $db->prepare("SELECT * FROM `budget` WHERE `year` = ?");
 $qBud->bindParam(1, $year);
-$qBud->bindParam(2, $idCategory);
 
 
 
@@ -33,9 +32,26 @@ if ($qCats->execute()) {
       $result[$c][0] = $cat["idCategory"];
       $result[$c][1] = $cat["name"];
       $result[$c][2] = $cat["type"];
+      $result[$c][3] = "";
+      $result[$c][4] = "";
+      $result[$c][5] = "";
+      $result[$c][6] = "";
+      $result[$c][7] = "";
+      $result[$c][8] = "";
+      $result[$c][9] = "";
+      $result[$c][10] = "";
+      $result[$c][11] = "";
+      $result[$c][12] = "";
+      $result[$c][13] = "";
+      $result[$c][14] = "";
       
       foreach ($buds as $bud) {
-        if($bud[4] == $cat["idCategory"]) {
+        if ($bud[4] == $cat["idCategory"]) {
+          $result[$c][$bud["month"]+2] = $bud["amount"];
+        }
+
+
+        /*if($bud[4] == $cat["idCategory"]) {
           $result[$c][3] = $bud["idCategory"];
           $result[$c][4] = $bud["year"];
           $result[$c][5] = $bud["month"];
@@ -46,7 +62,7 @@ if ($qCats->execute()) {
           $result[$c][4] = null ;
           $result[$c][5] = null ;
           $result[$c][6] = null ;
-        }
+        }*/
       }
       $c += 1;
     }
