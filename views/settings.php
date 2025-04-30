@@ -15,8 +15,8 @@ $stmt->execute();
 
 ?>
 <div class="marge"></div>
-  <div class="row" style="margin-top: 1%; margin-left: 1%;">
-    <div class="col-2" style="background-color: white; border-radius: 5px; padding: 1%;">
+  <div class="row" style="margin-top: 1%; margin-left: 3%;">
+    <div class="col-3" style="background-color: white; border-radius: 5px; padding: 1%;">
       <h3>Categories</h3>
       <br>
       <div class="input-group">

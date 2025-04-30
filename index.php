@@ -20,5 +20,8 @@ else if ($page == "budget") {
 else if ($page == "settings") {
     include 'views/settings.php';
 }
+else if ($page == "trans") {
+    include 'views/trans.php';
+}
 
 ?>
