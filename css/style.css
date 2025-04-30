@@ -1,5 +1,5 @@
 html, body {
-  background-color: #EAF5F5 !important;
+  background-color: #F5EEDC !important;
 }
 
 .cross:hover {
@@ -34,7 +34,8 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #CED6D6;
+  background-color: #625f58;
+  color: white;
 }
 
 .pages {
@@ -43,7 +44,7 @@ html, body {
 
 .pages a {
   display: block;
-  color: black;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -62,7 +63,7 @@ html, body {
 }
 
 .pages a:hover {
-  background-color: #F4F9F9;
+  background-color: #4C3C3C;
 }
 
 #titlenav {
@@ -71,7 +72,7 @@ html, body {
 
 #titlenav a {
   display: block;
-  color: black;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
