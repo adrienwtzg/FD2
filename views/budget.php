@@ -15,6 +15,23 @@ if (isset($_SESSION['loginError']))
     min-height: 5px;
     height: 5px;
   }
+  table td {
+  position: relative;
+  }
+
+  table td input {
+    position: absolute;
+    display: block;
+    top:0;
+    left:0;
+    margin: 2%;
+    height: 90%;
+    width: 90%;
+    border: 0;
+    border-collapse: collapse;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 </style>
     <div class="marge"></div>
     <div class="row">
