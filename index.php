@@ -23,5 +23,11 @@ else if ($page == "settings") {
 else if ($page == "trans") {
     include 'views/trans.php';
 }
+else if ($page == "payments") {
+    include 'views/payments.php';
+}
+else if ($page == "savings") {
+    include 'views/savings.php';
+}
 
 ?>

@@ -31,23 +31,77 @@ $stmt->execute();
         </div>
       </div>
       <br>
-      <h4 style="text-align: center;">Income</h4>
+      <h5 style="text-align: center;">Income</h5>
       <ul class="list-group" id="listIncome">
         
       </ul>
       <br>
-      <h4 style="text-align: center;">Expenses</h4>
+      <h5 style="text-align: center;">Expenses</h5>
       <ul class="list-group" id="listExpenses">
         
       </ul>
       <br>
-      <h4 style="text-align: center;">Savings</h4>
+      <h5 style="text-align: center;">Savings</h5>
       <ul class="list-group" id="listSavings">
 
       </ul>
     </div>
-    <div class="col-4"></div>
-    <div class="col-4"></div>
+    <div class="col-5" style="margin-left: 1%; ">
+      <div style="background-color: white; padding: 1%; border-radius: 5px;">
+        <h3>Payments <button style="float: right;" class="btn btn-success">+</button></h3>
+      
+      <br>
+      <table class="table">
+        
+        <tbody class="table-group-divider table-divider-color">
+          <tr>
+            <th scope="row">Apple iCloud+</th>
+            <td>Expenses</td>
+            <td>Medias</td>
+            <td>10</td>
+            <td>
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="cs2">
+                  <label class="custom-control-label" for="cs2"><input class="custom-input" min=0 max=31 type="number" disabled></label>
+                  <button class="btn btn-outline-secondary btn-sm" style="border: 0;">📝</button>
+                  <button class="btn btn-outline-secondary btn-sm" style="border: 0;">❌</button>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Spotify</th>
+            <td>Expenses</td>
+            <td>Medias</td>
+            <td>19</td>
+            <td>
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="cs2">
+                  <label class="custom-control-label" for="cs2"><input class="custom-input" min=0 max=31 type="number" disabled></label>
+                  <button class="btn btn-outline-secondary btn-sm" style="border: 0;">📝</button>
+                  <button class="btn btn-outline-secondary btn-sm" style="border: 0;">❌</button>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Accomptes</th>
+            <td>Savings</td>
+            <td>Impôts</td>
+            <td>715</td>
+            <td>
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="cs2">
+                  <label class="custom-control-label" for="cs2"><input class="custom-input" min=0 max=31 type="number" disabled></label>
+                  <button class="btn btn-outline-secondary btn-sm" style="border: 0;">📝</button>
+                  <button class="btn btn-outline-secondary btn-sm" style="border: 0;">❌</button>
+                </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      
+    </div>
+    <div class="col-3"></div>
   </div>
   <script>
 
