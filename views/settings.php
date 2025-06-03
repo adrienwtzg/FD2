@@ -31,9 +31,28 @@
   </div>
 </div>
 
+<div class="modal fade" id="delCatConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete the category and all data related to it ? (budget entries, transactions, savings, projects)</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="delCat">DELETE</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-<div class="marge"></div>
+<div class="marge" id="message"></div>
   <div class="row" style="margin-top: 1%; margin-left: 3%;">
     <div class="col-3" style="background-color: white; border-radius: 5px; padding: 1%;">
       <h3>Categories <button style="float: right;" data-toggle="modal" data-target="#addCategory" class="btn btn-success">+</button></h3>
@@ -121,6 +140,23 @@
   </div>
   <script>
 
+    function changeOrderCategory(idCategory, direction){
+      $.ajax({
+         url: 'model/changeOrderCategory.php',
+         data: {idCategory: idCategory, direction: direction},
+         success: function(data) {
+           let clearData = JSON.parse(data);
+           if (clearData) {
+             displayCategories();
+           }
+           else {
+             showMessage("sfasdfasdfasdf", "danger");
+           }
+         },
+         type: 'POST'
+        });
+    }
+
     function deleteCategory(idCategory){
       $.ajax({
          url: 'model/delCategory.php',
@@ -128,14 +164,30 @@
          success: function(data) {
            let clearData = JSON.parse(data);
            if (clearData) {
+             $('#delCatConfirm').modal('toggle');
              displayCategories();
+             showMessage("Categorie suprrimée", "success");
            }
            else {
-             alert("ERROR: La categorie n'a pas été supprimée");
+             showMessage("La categorie n'a pas été supprimée", "danger");
            }
          },
          type: 'POST'
         });
+    }
+
+    function showMessage(message, type){
+      $('#message').empty();
+      $('#message').append(""+
+        "<div class=\"alert alert-"+type+"\" role=\"alert\">"+
+          message+
+        "</div>"
+      );
+      setTimeout(function() {
+          $('#message').empty();
+      }, 5000);
+      
+      
     }
 
     function displayCategories() {
@@ -150,14 +202,33 @@
             
           }
           else {
+          let nbI = [];
+          let nbE = [];
+          let nbS = [];
+          clearData.forEach(function (item) {
+            if (item[2] == "Income") {
+              nbI.push(item[0]);
+            }
+            else if (item[2] == "Expenses") {
+              nbE.push(item[0]);
+            }
+            else {
+              nbS.push(item[0]);
+            }
+          });
+          console.log(nbI);
+          console.log(nbE);
+          console.log(nbS);
           clearData.forEach(function (item) {
             let catList = ""+
                 "<tr>"+
                   "<th scope=\"row\">"+item[1]+"</th>"+
                   "<td>"+
                     "<div class=\"custom-control\">"+
-                      "<button class=\"btn btn-outline-secondary btn-sm\" onclick=\"deleteCategory("+item[0]+")\" style=\"border: 0; float: right;\">❌</button>"+
+                      "<button class=\"btn btn-outline-secondary btn-sm\" data-toggle=\"modal\" data-target=\"#delCatConfirm\" data-whatever=\""+item[0]+"\" style=\"border: 0; float: right;\">❌</button>"+
                       "<button class=\"btn btn-outline-secondary btn-sm\" style=\"border: 0; float: right;\">📝</button>"+
+                      ((item[0] == nbI[0] || item[0] == nbE[0] || item[0] == nbS[0])?"":"<button class=\"btn btn-outline-secondary btn-sm\" onclick=\"changeOrderCategory("+item[0]+", 0)\" style=\"border: 0; float: right;\">▲</button>")+
+                      ((item[0] == nbI[nbI.length-1] || item[nbE.length-1] == nbE[0] || item[nbS.length-1] == nbS[0])?"":"<button class=\"btn btn-outline-secondary btn-sm\" onclick=\"changeOrderCategory("+item[0]+", 1)\" style=\"border: 0; float: right;\">▼</button>")+
                       "</div>"+
                   "</td>"+
                 "</tr>";
@@ -179,6 +250,17 @@
       });
     }
 
+    $('#delCatConfirm').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var recipient = button.data('whatever') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find("#delCat").attr("onclick","deleteCategory("+recipient+")");
+      
+    })
+
+
     $(document).ready(function(){
 
       displayCategories();
@@ -192,6 +274,7 @@
            let clearData = JSON.parse(data);
            if (clearData) {
              displayCategories();
+             showMessage("Catégorie ajoutée", "success");
            }
            else {
              alert("ERROR: La categorie n'a pas été ajoutée");

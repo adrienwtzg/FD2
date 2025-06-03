@@ -12,7 +12,7 @@ $year = (isset($_GET["year"]) ? $_GET["year"] : "");
 $db = connectDB();
 
 
-$qCats = $db->prepare("SELECT * FROM categories");
+$qCats = $db->prepare("SELECT * FROM categories ORDER BY type, ord");
 
 
 $qBud = $db->prepare("SELECT * FROM `budget` WHERE `year` = ?");
@@ -49,20 +49,6 @@ if ($qCats->execute()) {
         if ($bud[4] == $cat["idCategory"]) {
           $result[$c][$bud["month"]+2] = $bud["amount"];
         }
-
-
-        /*if($bud[4] == $cat["idCategory"]) {
-          $result[$c][3] = $bud["idCategory"];
-          $result[$c][4] = $bud["year"];
-          $result[$c][5] = $bud["month"];
-          $result[$c][6] = $bud["amount"];
-        }
-        else {
-          $result[$c][3] = null ;
-          $result[$c][4] = null ;
-          $result[$c][5] = null ;
-          $result[$c][6] = null ;
-        }*/
       }
       $c += 1;
     }

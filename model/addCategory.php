@@ -11,7 +11,7 @@ $type = (isset($_GET["typeCat"]) ? $_GET["typeCat"] : "");
 
 
 $db = connectDB();
-$query = $db->prepare("INSERT INTO `categories` (`name`, `type`) VALUES (?,?)");
+$query = $db->prepare("INSERT INTO `categories` (`name`, `type`, `ord`) VALUES (?,?,0)");
 $query->bindParam(1, $name);
 $query->bindParam(2, $type);
 

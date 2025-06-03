@@ -7,7 +7,7 @@ include '../db/db_connect.php';
 
 
 $db = connectDB();
-$query = $db->prepare("SELECT * FROM categories");
+$query = $db->prepare("SELECT * FROM categories ORDER BY ord");
 
 if ($query->execute()) {
   $tab = $query->fetchAll();

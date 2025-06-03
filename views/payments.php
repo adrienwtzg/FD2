@@ -14,7 +14,37 @@ if (isset($_SESSION['loginError']))
     vertical-align: middle;
   }
 </style>
-      
+    <div class="row">
+      <div class="col-1" style="padding-left: 1%; padding-top: 0.5%;">
+        <select class="custom-select" id="periodSel">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+          <option value="0">All year</option>
+        </select>
+        <select class="custom-select" id="yearSel"  style="margin-top: 5%;">
+          <option>2025</option>
+          <option>2026</option>
+        </select>
+      </div>
+    </div>
+    <div class="marge"></div>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-5">
+        <h1 id="titleTrans" style="text-align: center;"></h1>
+      </div>
+      <div class="col-4"></div>
+    </div>
     <div class="marge"></div>
     <div class="row">
       <div class="col-1"></div>
@@ -155,6 +185,31 @@ if (isset($_SESSION['loginError']))
       </div>
       <div class="col-1"></div>
     </div>
-  
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script>
+      $('#yearSel').change(function(){
+        displayTitleTrans();
+      });
+
+      $('#periodSel').change(function(){
+        displayTitleTrans();
+      });
+
+      function displayTitleTrans(){
+        $('#titleTrans').empty();
+        $('#titleTrans').append($('#periodSel  option:selected').text()+" - "+$('#yearSel').val()) 
+      }
+
+      //MAIN 
+      $(document).ready(function(){
+        
+        $("#periodSel").val(moment().format('M'));
+        $("#yearSel").val(moment().format('YYYY'));
+        displayTitleTrans();
+
+        
+        
+      });
+    </script>
   </body>
 </html>

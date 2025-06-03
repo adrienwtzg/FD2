@@ -15,19 +15,13 @@ if (isset($_SESSION['loginError']))
     <table  id="tableTransInput" style=" padding: 5px;" class="table table-borderless">
           <tr>
             <th class="col-2">
-              <select class="custom-select" id="type">
-                <option>Forecast</option>
-                <option>Transactions</option>
-              </select>
-            </th>
-            <th class="col-2">
               <select class="custom-select" id="category">
                 <option>Salaire (net)</option>
                 <option>Courses</option>
                 <option>Assurance maladie</option>
               </select>
             </th>
-            <th class="col-8"></th>
+            <th class="col-10"></th>
           </tr>
         </table>
     <div class="row">
@@ -42,14 +36,21 @@ if (isset($_SESSION['loginError']))
     <br>
     <div class="row">
       <div class="col-1"></div>
-      <div class="col-6" style="background-color: white; padding: 20px; border-radius: 15px;">
-        <h4 style="text-align: center;">Forecast Vacances</h4>
+      <div class="col-10" style="background-color: white; padding: 20px; border-radius: 15px;">
+        <h2 style="text-align: center;">Vacances - 2025</h2>
         <br>
         <canvas id="myChart" style="width:100%"></canvas>
+      
+        
       </div>
-      <div class="col-4" style="padding-left: 5%;">
-        <h5 style="text-align: center;">Projets</h5>
-        <br>
+      <div class="col-1"></div>
+      
+    </div>
+    <div class="marge"></div>
+    <div class="marge"></div>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-3">
         <table class="table">
         
         <tbody class="table-group-divider table-divider-color">
@@ -93,16 +94,19 @@ if (isset($_SESSION['loginError']))
         </tbody>
       </table>
       </div>
-      <div class="col-1"></div>
+      <div class="col-3"></div>
+      <div class="col-3"></div>
       
     </div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script>
-    const xValues = ["jan 25","fev 25","mars","mars","mars","mars","mars","mars",];
-    const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+    const xValues = ["jan 25","feb 25","mar 25","apr 25","may 25","jun 25","jul 25","aug 25", "sep 25", "oct 25", "nov 25", "dec 25"];
+    const yValues1 = [1250, 2000, 2150, 2260, 2670, 3250, 4000];
+    const yValues2 = [,,,,,,4000, 5000, 6000];
 
-    new Chart("myChart", {
+   
+    /*new Chart("myChaart", {
       type: "line",
       data: {
         labels: xValues,
@@ -110,16 +114,97 @@ if (isset($_SESSION['loginError']))
           fill: false,
           lineTension: 0,
           backgroundColor: "rgba(0,0,255,1.0)",
-          borderColor: "rgba(0,0,255,0.1)",
+          borderColor: "rgba(0,0,255,1.0)",
           data: yValues
         }]
       },
       options: {
         legend: {display: false},
-        scales: {
-          yAxes: [{ticks: {min: 100, max: 1000}}],
-        }
+        plugins: [{
+          afterDatasetsDraw: function(chart) {
+            var ctx = chart.ctx;
+            chart.data.datasets.forEach(function(dataset, index) {
+                var datasetMeta = chart.getDatasetMeta(index);
+                if (datasetMeta.hidden) return;
+                datasetMeta.data.forEach(function(point, index) {
+                  var value = dataset.data[index],
+                      x = point.getCenterPoint().x,
+                      y = point.getCenterPoint().y,
+                      radius = point._model.radius,
+                      fontSize = 14,
+                      fontFamily = 'Verdana',
+                      fontColor = 'black',
+                      fontStyle = 'normal';
+                  ctx.save();
+                  ctx.textBaseline = 'middle';
+                  ctx.textAlign = 'center';
+                  ctx.font = fontStyle + ' ' + fontSize + 'px' + ' ' + fontFamily;
+                  ctx.fillStyle = fontColor;
+                  ctx.fillText(value, x, y - radius - fontSize);
+                  ctx.restore();
+                });
+            });
+          }
+      }]
       }
+    });*/
+
+    var chart = new Chart("myChart", {
+      type: 'line',
+      data: {
+          labels: xValues,
+          datasets: [{
+            label: "Balance",
+            data: yValues1,
+            tension: 0,
+            backgroundColor: 'rgba(0, 119, 290, 0.5)',
+            borderColor: 'rgba(0, 119, 290, 0.6)',
+            fill: false
+          },{
+            label: "Forecast",
+            data: yValues2,
+            tension: 0,
+            borderDash: [10,5],
+            backgroundColor: 'rgba(0, 119, 290, 0.5)',
+            borderColor: 'rgba(0, 119, 290, 0.6)',
+            fill: false
+          }]
+      },
+      options: {
+          scales: {
+            yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+            }]
+          }
+      },
+      plugins: [{
+          afterDatasetsDraw: function(chart) {
+            var ctx = chart.ctx;
+            chart.data.datasets.forEach(function(dataset, index) {
+                var datasetMeta = chart.getDatasetMeta(index);
+                if (datasetMeta.hidden) return;
+                datasetMeta.data.forEach(function(point, index) {
+                  var value = dataset.data[index],
+                      x = point.getCenterPoint().x,
+                      y = point.getCenterPoint().y,
+                      radius = point._model.radius,
+                      fontSize = 14,
+                      fontFamily = 'Verdana',
+                      fontColor = 'black',
+                      fontStyle = 'normal';
+                  ctx.save();
+                  ctx.textBaseline = 'middle';
+                  ctx.textAlign = 'center';
+                  ctx.font = fontStyle + ' ' + fontSize + 'px' + ' ' + fontFamily;
+                  ctx.fillStyle = fontColor;
+                  ctx.fillText(value, x, y - radius - fontSize);
+                  ctx.restore();
+                });
+            });
+          }
+      }]
     });
   </script>
 </html>

@@ -4,7 +4,7 @@ DEFINE('SERVER', '127.0.0.1');
 DEFINE('PORT', '');
 DEFINE('PSEUDO', 'root');
 DEFINE('PWD', '');
-DEFINE('DB_NAME', 'FD2');
+DEFINE('DB_NAME', 'as1hym_fd2');
 
 //Fonction de connexion à la base de données
 function connectDB() {
